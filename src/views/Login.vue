@@ -4,19 +4,30 @@
       <h3>系统登录</h3>
       <el-form ref="form" :model="form" :rules="rules">
         <el-form-item prop="username">
-          <el-input v-model="form.username" placeholder="请输入用户名"></el-input>
+          <el-input
+            v-model="form.username"
+            placeholder="请输入用户名"
+          ></el-input>
         </el-form-item>
         <el-form-item prop="password">
-          <el-input v-model="form.password" placeholder="请输入密码" show-password></el-input>
+          <el-input
+            v-model="form.password"
+            placeholder="请输入密码"
+            show-password
+          ></el-input>
         </el-form-item>
         <el-form-item>
           <div class="df" prop="code">
-            <el-input v-model="form.code" placeholder="请输入验证码" class="width"></el-input>
-            <span class="w"><img :src="img" alt="" @click="imgReset"></span>
+            <el-input
+              v-model="form.code"
+              placeholder="请输入验证码"
+              class="width"
+            ></el-input>
+            <span class="w"><img :src="img" alt="" @click="imgReset" /></span>
           </div>
         </el-form-item>
         <el-form-item class="df">
-          <el-button type="primary" @click="loginOk">{{log}}</el-button>
+          <el-button type="primary" @click="loginOk">{{ log }}</el-button>
           <el-button @click="rese">重置</el-button>
         </el-form-item>
       </el-form>
