@@ -7,7 +7,7 @@ import 'element-ui/lib/theme-chalk/index.css';
 
 Vue.use(ElementUI);
 
-
+import '../src/style/reset.css'
 Vue.config.productionTip = false
 
 new Vue({
