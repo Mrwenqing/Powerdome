@@ -36,12 +36,12 @@ export default {
   /* height : 50px; */
   /* line-height: 100px; */
   height: 60px!important;
-  background-color: #2d3a4b;
+  background-color: #167bd8;
   padding:0;
 }
 
 .el-aside {
-  background-color:#545c64;
+  background-color:#ffffff;
   height : 100%;
 }
 

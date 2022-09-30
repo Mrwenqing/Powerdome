@@ -5,8 +5,9 @@
     </router-link>
     <el-dropdown @command="handleCommand">
      <div class="dp">
-      <p class="p">你好，admin</p>
-      <p class="p">{{time}}</p>
+      <div class="left"></div>
+      <div class="right"><p class="p">你好，admin</p>
+      <p class="p">{{time}}</p></div>
      </div>
       <el-dropdown-menu slot="dropdown">
         <el-dropdown-item icon="el-icon-edit" command="changePass">修改密码</el-dropdown-item>
@@ -26,7 +27,7 @@ export default {
   },
   created(){
 
-    this.time =new Date().toLocaleTimeString()
+    this.time =new Date().toLocaleString()
   },
   methods : {
     handleCommand(command){
@@ -60,11 +61,24 @@ export default {
 
 <style scoped>
 .dp{
-  font-size: 10px;
-  
+  font-size: 20px;
+  display: flex;
+  justify-content: space-between;
 }
-.p{
-    margin-top: 10px;
+.left{
+  margin-top: 5px;
+width: 50px;
+height: 50px;
+background-color: red;
+border-radius: 24px;
+margin-right: 10px;
+}
+.right{
+  height: 60px;
+}
+.right.p{
+  display: block;
+    margin-top: 5px !important;
   }
 .link{
   text-decoration: none;
