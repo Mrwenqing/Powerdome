@@ -1,25 +1,30 @@
 <template>
-  <div>
-    <app-link v-if="controllLink"></app-link>
-    <router-view></router-view>
+  <div class="container">
+    <div class="main-tab">
+      <MenuIcon/>
+      <TagsView/>
+    </div>
+    <div class="main-view">
+      <router-view></router-view>
+    </div>
   </div>
 </template>
 
 <script>
-import AppLink from "./Link"
+import MenuIcon from '../../components/MenuIcon'
+import TagsView from '../../components/TagsView'
+
 export default {
-  name: "index",
-  components : {
-    AppLink
-  },
-  computed : {
-    controllLink(){
-      return !(this.$route.path === "/index")
-    }
+  name: 'App-Main',
+  components: {
+    MenuIcon,
+    TagsView
   }
-};
+}
 </script>
 
-<style scoped>
-
+<style lang="scss" scoped>
+.main-tab {
+  display: flex;
+}
 </style>
