@@ -8,9 +8,10 @@ import 'element-ui/lib/theme-chalk/index.css';
 Vue.use(ElementUI);
 // 解决menu菜单收起文字不隐藏的问题
 import Fragment from 'vue-fragment'
+Vue.use(Fragment.Plugin)
+// 引入css样式
 import '../src/style/reset.css'
 Vue.config.productionTip = false
-Vue.use(Fragment.Plugin)
 new Vue({
   router,
   store,

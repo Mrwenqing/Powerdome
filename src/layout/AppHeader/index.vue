@@ -17,7 +17,7 @@
       </el-dropdown>
 
       <div class="userinfo">
-        <span>欢迎您,<i>张明</i></span>
+        <span>欢迎您,<i>Mr.zhang</i></span>
         <span>{{ date }} {{ week }}</span>
       </div>
     </div>
