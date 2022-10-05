@@ -36,7 +36,7 @@
 </template>
 
 <script>
-import { handelLoginImg, handelLogin } from "../../aip/login.js";
+import { handelLoginImg, handelLogin } from "../../api/login.js";
 import axios from "axios";
 export default {
   name: "login",
