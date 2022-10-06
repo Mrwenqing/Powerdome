@@ -1,7 +1,3 @@
-/**
- * @author YangLing
- * @date 2022/10/5 08:44
- */
 export default {
   namespaced: true,
   state: {

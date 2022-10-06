@@ -1,7 +1,3 @@
-/**
- * @author YangLing
- * @date 2022/10/6 10:35
- */
 import router from "./router";
 import store from "./store";
 import { getToken, removeToken } from "./utils/auth";

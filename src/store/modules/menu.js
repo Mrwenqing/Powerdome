@@ -1,7 +1,3 @@
-/**
- * @author YangLing
- * @date 2022/10/4 16:16
- */
 import loginApi from '../../api/login'
 
 export default {

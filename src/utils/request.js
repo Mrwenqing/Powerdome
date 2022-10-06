@@ -1,7 +1,3 @@
-/**
- * @author YangLing
- * @date 2022/10/6 08:35
- */
 import axios from 'axios'
 
 import { Message } from 'element-ui'

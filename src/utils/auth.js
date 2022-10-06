@@ -1,7 +1,3 @@
-/**
- * @author YangLing
- * @date 2022/10/6 10:26
- */
 import Cookies from 'js-cookie'
 
 const TOKEN_KEY = 'token'

@@ -1,7 +1,3 @@
-/**
- * @author YangLing
- * @date 2022/10/6 09:38
- */
 import loginApi from '../../api/login'
 import { setToken, getToken } from '../../utils/auth'
 
