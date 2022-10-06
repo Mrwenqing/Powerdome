@@ -1,44 +1,64 @@
-import $axios from 'axios'
-import store from '../store/index'
-const instance = $axios.create({
-    baseURL: 'http://119.45.133.128:8098',
-    timeout: 5000,
-});
+/**
+ * @author YangLing
+ * @date 2022/10/6 08:35
+ */
+import axios from 'axios'
 
-// Add a request interceptor
-instance.interceptors.request.use(function (config) {
-    // Do something before request is sent
-    const token = store.getters.TOKEN
-    if (token) config.headers.token = token
-    return config;
+import { Message } from 'element-ui'
+
+import { getToken } from './auth'
+
+// 自定义异常提示信息
+const exceptionMessage = {
+  // 500: '登录失败'
+}
+
+const service = axios.create({
+  baseURL: process.env.VUE_APP_BASE_API,
+  timeout: 5000
+})
+
+// 请求拦截器
+service.interceptors.request.use(function (config) {
+  const token = getToken()
+  if (token) {
+    config.headers.token = token
+  }
+
+  return config
 }, function (error) {
-    // Do something with request error
-    return Promise.reject(error);
-});
+  return Promise.reject(error)
+})
 
-// Add a response interceptor
-instance.interceptors.response.use(function (response) {
-    // Do something with response data
-    console.log(response, 'response');
-    if (response.status < 400) {
-        return response.data
+// 响应拦截器
+service.interceptors.response.use(function (response) {
+  if (response.status === 200) {
+    if (response.data.code === 200 || response.config.responseType === 'arraybuffer') {
+      return response.data
     }
-    // if (response.status <400) {
-    //     return response.
-    // }
-    return response;
-}, function (error) {
-    // Do something with response error
-    return Promise.reject(error);
-});
+    if (response.data.code === 600) {
+      // TODO token过期处理
+      return
+    }
 
+    _showErrorMessage(response.data.code, response.data.msg)
+  }
+}, function (error) {
+  return Promise.reject(error)
+})
+
+const _showErrorMessage = (code, msg) => {
+  const message = exceptionMessage[code] || msg || '未知错误'
+  Message({ message, type: 'error' })
+}
+
+// 统一传参
 const request = (options) => {
-    options.method = options.method || 'get'
-    if (options.method.toLocaleLowerCase() === 'get') {
-        options.params = options.data || options.params
-        delete options.data
-    }
-    return instance(options)
+  options.method = options.method || 'GET'
+  if (options.method.toLowerCase() === 'get') {
+    options.params = options.data
+  }
+  return service(options)
 }
 
 export default request

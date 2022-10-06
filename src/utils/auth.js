@@ -1,21 +1,21 @@
-const TOKEN = 'token'
-const INFO = 'userInfo'
+/**
+ * @author YangLing
+ * @date 2022/10/6 10:26
+ */
+import Cookies from 'js-cookie'
 
-export const setlotionToken = (token) => {
-    localStorage.setItem(TOKEN, token)
+const TOKEN_KEY = 'token'
+
+// 存储token
+export const setToken = (token) => {
+  Cookies.set(TOKEN_KEY, token)
 }
-export const getlotionToken = () => {
-    return localStorage.getItem(TOKEN || '')
+// 获取token
+export const getToken = () => {
+  return Cookies.get(TOKEN_KEY)
 }
 
-export const setlotionuser = (user) => {
-    localStorage.setItem(INFO, JSON.stringify(user))
-}
-
-export const getlotionuser = () => {
-    return JSON.parse(localStorage.getItem(INFO || '{}'))
-}
-export const remove = () => {
-    localStorage.removeItem('TOKEN')
-    localStorage.removeItem('INFO')
+// 删除token
+export const removeToken = () => {
+  Cookies.remove(TOKEN_KEY)
 }

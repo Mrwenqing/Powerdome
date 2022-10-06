@@ -1,12 +1,13 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Login from '../views/login/index.vue'
+import Login from '../views/Login.vue'
 
-// 解决重复点击路由报错的BUG
+// 解决重复点击路由出现的错误
 const originalPush = VueRouter.prototype.push
 VueRouter.prototype.push = function push(location) {
-  return originalPush.call(this, location).catch((err) => err)
+  return originalPush.call(this, location).catch(err => err)
 }
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -16,97 +17,95 @@ const routes = [
     component: Login
   },
   {
+    path: '/404',
+    component: () => import('../views/404')
+  },
+  {
     path: '/',
     name: 'layout',
-    component: () => import('../layout/Layout.vue'),
-    children:[
-      // 首页
+    redirect: '/home',
+    component: () => import('../layout/Layout'),
+    children: [
       {
-        path: '/home',
+        path: 'home',
         name: 'home',
-        component: () => import('../views/home.vue'),
-      },
-      // 系统管理
-      // 机构管理
-      {
-        path: '/departmentList',
-        name: 'departmentList',
-        component: () => import('../views/system/departmentList.vue'),
-        meta: {
-          title: '机构管理'
-        }
-      },
-      // 权限管理
-      {
-        path: '/menuList',
-        name: 'menuList',
-        component: () => import('../views/system/menuList.vue'),
-        meta: {
-          title: '权限管理'
-        }
-      },
-       // 角色管理
-      {
-        path: '/roleList',
-        name: 'roleList',
-        component: () => import('../views/system/roleList.vue'),
-        meta: {
-          title: '角色管理'
-        }
-      },
-      // 用户管理
-      {
-        path: '/userList',
-        name: 'userList',
-        component: () => import('../views/system/userList.vue'),
-        meta: {
-          title: '用户管理'
-        }
-      },
-    //  商品管理
-    // 分类管理
-    {
-      path: '/goodCategory',
-      name: 'goodCategory',
-      component: () => import('../views/commodity/goodCategory.vue'),
-      meta: {
-        title: '分类管理'
+        component: () => import('../views/Home')
       }
-    },
-    // 品牌管理
-    {
-      path: '/goodsBrand',
-      name: 'goodsBrand',
-      component: () => import('../views/commodity/goodsBrand.vue'),
-      meta: {
-        title: '品牌管理'
-      }
-    },
-    // 系统工具
-    // 代码生成
-    {
-      path: '/systemCode',
-      name: 'systemCode',
-      component: () => import('../views/systemtools/systemCode.vue'),
-      meta: {
-        title: '代码生成'
-      }
-    },
-    // 接口文档
-    {
-      path: '/document',
-      name: 'document',
-      component: () => import('../views/systemtools/document.vue'),
-      meta: {
-        title: '接口文档'
-      }
-    }
+      // {
+      //   path: '/department',
+      //   name: 'department',
+      //   component: () => import('../views/system/department/department'),
+      //   meta: {
+      //     title: '机构管理'
+      //   }
+      // },
+      // {
+      //   path: '/userList',
+      //   name: 'userList',
+      //   component: () => import('../views/system/User/UserList'),
+      //   meta: {
+      //     title: '用户管理'
+      //   }
+      // },
+      // {
+      //   path: '/roleList',
+      //   name: 'roleList',
+      //   component: () => import('../views/system/Role/RoleList'),
+      //   meta: {
+      //     title: '角色管理'
+      //   }
+      // },
+      // {
+      //   path: '/menuList',
+      //   name: 'menuList',
+      //   component: () => import('../views/system/Menu/MenuList'),
+      //   meta: {
+      //     title: '权限管理'
+      //   }
+      // },
+      // {
+      //   path: '/goodCategory',
+      //   name: 'goodCategory',
+      //   component: () => import('../views/goods/goodsCategory/goodsCategoryList'),
+      //   meta: {
+      //     title: '分类管理'
+      //   }
+      // },
+      // {
+      //   path: '/systemCode',
+      //   name: 'systemCode',
+      //   component: () => import('../views/system/config/code'),
+      //   meta: {
+      //     title: '日志管理'
+      //   }
+      // },
+      // {
+      //   path: '/document',
+      //   name: 'document',
+      //   component: () => import('../views/system/config/systemDocument'),
+      //   meta: {
+      //     title: '接口文档'
+      //   }
+      // }
     ]
+  },
+  {
+    path: '*',
+    redirect: '/404'
   }
 ]
 
 const router = new VueRouter({
   routes
 })
+
+// router.addRoute('layout', {
+//   path: '/department',
+//   name: 'department',
+//   component: () => import('../views/system/department/department'),
+//   meta: {
+//     title: '机构管理'
+//   }
+// })
 
 export default router

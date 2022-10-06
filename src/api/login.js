@@ -1,15 +1,49 @@
+/**
+ * @author YangLing
+ * @date 2022/10/6 08:40
+ */
+
 import request from '../utils/request'
-export const handelLoginImg = () => {
-    return request({
-        url: '/api/sysUser/image',
-        method:'post',
-        responseType: 'blob'
-    })
+import qs from 'qs'
+
+/**
+ * 获取图片验证码接口
+ * @returns {AxiosPromise}
+ */
+const getCapture = () => {
+  return request({
+    url: '/sysUser/image',
+    method: 'POST',
+    responseType: 'arraybuffer'
+  })
 }
-export const handelLogin = (data) => {
-    return request({
-        url: '/api/user/login',
-        method:'post',
-        data
-    })
+
+/**
+ * 登录接口
+ * @param data
+ * @returns {AxiosPromise}
+ */
+const login = (data) => {
+  return request({
+    url: '/user/login',
+    method: 'POST',
+    data: qs.stringify(data)
+  })
+}
+
+/**
+ * 获取权限列表接口
+ * @returns {AxiosPromise}
+ */
+const getPermissionList = () => {
+  return request({
+    url: '/sysUser/getPermissionList',
+    method: 'GET'
+  })
+}
+
+export default {
+  login,
+  getCapture,
+  getPermissionList
 }
