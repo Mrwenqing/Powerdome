@@ -1,39 +1,52 @@
-import router from "./router";
-import store from "./store";
-import { getToken, removeToken } from "./utils/auth";
+/**
+ * @author YangLing
+ * @date 2022/10/6 10:35
+ */
+import router from './router'
+import store from './store'
+import { getToken, removeToken } from './utils/auth'
 
-const whiteList = ["/404", "/401", "/login"];
+const whiteList = ['/404', '/401', '/login']
 router.beforeEach(async (to, from, next) => {
-  const token = getToken();
+  const token = getToken()
   if (token) {
-    if (to.path === "/login") {
-      next(from.path);
+    if (to.path === '/login') {
+      next(from.path)
     } else {
       // vuex 有没有菜单的数据
-      const menuList = store.getters.menuList;
+      const menuList = store.getters.menuList
       if (menuList && menuList.length > 0) {
-        next();
+        next()
       } else {
         try {
-          const response = await store.dispatch("Menu/getMenuList", router);
+          const { response, routerArray } = await store.dispatch('Menu/getMenuList')
+
           if (response) {
-            next({ path: to.path });
+            routerArray.forEach(item => {
+              router.addRoute('layout', item)
+            })
+            router.addRoute({
+              path: '*',
+              redirect: '/404'
+            })
+            console.log('zg', router.getRoutes())
+            next({ path: to.path })
           } else {
-            removeToken();
-            next("/login");
+            removeToken()
+            next('/login')
           }
         } catch (e) {
-          console.log(e.message);
-          removeToken();
-          next("/login");
+          console.log(e.message)
+          removeToken()
+          next('/login')
         }
       }
     }
   } else {
     if (whiteList.indexOf(to.path) !== -1) {
-      next();
+      next()
     } else {
-      next("/login");
+      next('/login')
     }
   }
-});
+})

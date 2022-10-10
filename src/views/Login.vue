@@ -5,25 +5,42 @@
         <div class="login-title">系统登录</div>
       </el-form-item>
       <el-form-item prop="username">
-        <el-input v-model="loginForm.username" placeholder="请输入用户名"></el-input>
+        <el-input
+          v-model="loginForm.username"
+          placeholder="请输入用户名"
+        ></el-input>
       </el-form-item>
       <el-form-item prop="password">
-        <el-input v-model="loginForm.password" placeholder="请输入密码" show-password></el-input>
+        <el-input
+          v-model="loginForm.password"
+          placeholder="请输入密码"
+          show-password
+        ></el-input>
       </el-form-item>
       <el-form-item prop="code">
         <el-row :gutter="20">
           <el-col :span="16">
-            <el-input v-model="loginForm.code" placeholder="请输入验证码"></el-input>
+            <el-input
+              v-model="loginForm.code"
+              placeholder="请输入验证码"
+            ></el-input>
           </el-col>
           <el-col :span="8">
-            <img :src="this.captureUrl" alt="图片验证码" class="capture" @click="getCapture">
+            <img
+              :src="this.captureUrl"
+              alt="图片验证码"
+              class="capture"
+              @click="getCapture"
+            />
           </el-col>
         </el-row>
       </el-form-item>
       <el-form-item>
         <el-row :gutter="20">
           <el-col :span="12">
-            <el-button class="btn" type="primary" @click="handleSubmit">登录</el-button>
+            <el-button class="btn" type="primary" @click="handleSubmit"
+              >登录</el-button
+            >
           </el-col>
           <el-col :span="12">
             <el-button class="btn" @click="handleReset">重置</el-button>
@@ -35,83 +52,90 @@
 </template>
 
 <script>
-import loginApi from '../api/login'
+import loginApi from "../api/login";
 
 export default {
-  name: 'Login',
+  name: "Login",
   data() {
     return {
-      captureUrl: '',
+      captureUrl: "",
       loginForm: {
-        username: '',
-        password: '',
-        code: ''
+        username: "",
+        password: "",
+        code: "",
       },
       rules: {
         username: [
           {
             required: true,
-            message: '请输入用户名',
-            trigger: 'change'
-          }
+            message: "请输入用户名",
+            trigger: "change",
+          },
         ],
         password: [
           {
             required: true,
-            message: '请输入密码',
-            trigger: 'change'
-          }
+            message: "请输入密码",
+            trigger: "change",
+          },
         ],
         code: [
           {
             required: true,
-            message: '请输入验证码',
-            trigger: 'change'
-          }
-        ]
-      }
-    }
+            message: "请输入验证码",
+            trigger: "change",
+          },
+        ],
+      },
+    };
   },
   created() {
-    this.getCapture()
+    this.getCapture();
   },
   methods: {
     handleSubmit() {
-      this.$refs.loginForm.validate(valid => {
+      this.$refs.loginForm.validate((valid) => {
         if (valid) {
-          this.handleLogin()
+          this.handleLogin();
         }
-      })
+      });
     },
     handleReset() {
-      this.$refs.loginForm.resetFields()
+      this.$refs.loginForm.resetFields();
     },
     async handleLogin() {
       try {
-        await this.$store.dispatch('User/handleLogin', this.loginForm)
-        this.$router.push('/')
+        await this.$store.dispatch("User/handleLogin", this.loginForm);
+        this.$router.push("/");
       } catch (e) {
-        this.$message.error(e.message)
-        console.log(e)
+        this.$message.error(e.message);
+        console.log(e);
       }
     },
     async getCapture() {
       try {
-        const response = await loginApi.getCapture()
+        const response = await loginApi.getCapture();
         // 获取图片的数据流
-        const arrayBuffer = response
+        const arrayBuffer = response;
 
         // 定义base64
-        const imageData = 'data:image/png;base64,' + btoa(new Uint8Array(arrayBuffer).reduce((data, byte) => data + String.fromCharCode(byte), ''))
+        const imageData =
+          "data:image/png;base64," +
+          btoa(
+            new Uint8Array(arrayBuffer).reduce(
+              (data, byte) => data + String.fromCharCode(byte),
+              ""
+            )
+          );
         // 将base64图片赋值给 保存验证码的变量
-        this.captureUrl = imageData
+        this.captureUrl = imageData;
       } catch (e) {
-        this.$message.error(e.message)
-        console.log(e)
+        this.$message.error(e.message);
+        console.log(e);
       }
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>

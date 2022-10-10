@@ -1,8 +1,8 @@
 <template>
   <div class="container">
     <div class="main-tab">
-      <MenuIcon />
-      <TagsView />
+      <MenuIcon/>
+      <TagsView/>
     </div>
     <div class="main-view">
       <router-view></router-view>
@@ -11,16 +11,16 @@
 </template>
 
 <script>
-import MenuIcon from "../../components/MenuIcon";
-import TagsView from "../../components/TagsView";
+import MenuIcon from '../../components/MenuIcon'
+import TagsView from '../../components/TagsView'
 
 export default {
-  name: "App-Main",
+  name: 'App-Main',
   components: {
     MenuIcon,
-    TagsView,
-  },
-};
+    TagsView
+  }
+}
 </script>
 
 <style lang="scss" scoped>

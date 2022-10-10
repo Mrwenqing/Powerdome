@@ -1,3 +1,7 @@
+/**
+ * @author YangLing
+ * @date 2022/10/6 14:39
+ */
 import Vue from 'vue'
 import store from '../store'
 
